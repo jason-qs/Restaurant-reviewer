@@ -10,6 +10,9 @@ import javax.transaction.Transactional
 @Singleton
 class ReviewService {
     @Inject
+    SecurityIdentity identiy;
+
+    @Inject
     var entityManager: EntityManager? = null
 
     fun getReviews(): kotlin.collections.List<Review?>? {
@@ -19,6 +22,7 @@ class ReviewService {
     fun getReview(id: Long?): Review {
         return  entityManager!!.find(Review::class.java, id)
     }
+
 
     @Transactional(Transactional.TxType.REQUIRED)
     fun addReview(review: Review?): Review? {

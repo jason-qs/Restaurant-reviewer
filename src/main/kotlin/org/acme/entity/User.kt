@@ -1,5 +1,6 @@
 package org.acme.entity
 
+import org.jboss.resteasy.spi.touri.MappedBy
 import java.io.Serializable
 import javax.persistence.*
 
@@ -12,6 +13,10 @@ class User : Serializable {
     var firstName: String? = null
     var lastName: String? = null
     var emailId: String? = null
+
+    @OneToMany(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "restaurantId")
+    open var reviews: MutableSet<Review> = mutableSetOf()
 
     constructor(id: Long?, firstName: String?,
                 lastName: String?, emailId: String?) : super() {
