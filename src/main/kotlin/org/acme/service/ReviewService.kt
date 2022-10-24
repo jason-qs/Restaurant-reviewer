@@ -2,6 +2,8 @@ package org.acme.service
 
 import org.acme.entity.Review
 import java.util.LongSummaryStatistics
+import javax.annotation.security.PermitAll
+import javax.annotation.security.RolesAllowed
 import javax.inject.Inject
 import javax.inject.Singleton
 import javax.persistence.EntityManager
@@ -9,8 +11,6 @@ import javax.transaction.Transactional
 
 @Singleton
 class ReviewService {
-    @Inject
-    SecurityIdentity identiy;
 
     @Inject
     var entityManager: EntityManager? = null
@@ -22,14 +22,11 @@ class ReviewService {
     fun getReview(id: Long?): Review {
         return  entityManager!!.find(Review::class.java, id)
     }
-
-
     @Transactional(Transactional.TxType.REQUIRED)
     fun addReview(review: Review?): Review? {
         entityManager!!.persist(review)
         return review
     }
-
     @Transactional(Transactional.TxType.REQUIRED)
     fun updateReview(id: Long?, review: Review) {
         val reviewToUpdate: Review = entityManager!!.
@@ -41,7 +38,6 @@ class ReviewService {
             throw RuntimeException("No such review available")
         }
     }
-
     @Transactional(Transactional.TxType.REQUIRED)
     fun deleteReview(id:Long?) {
         val review: Review = getReview(id)

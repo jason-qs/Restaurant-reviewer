@@ -38,7 +38,7 @@ class ReviewController {
     }
 
     @PUT
-    @RolesAllowed("user")
+    @RolesAllowed("user","admin")
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     fun updateReview(@PathParam("id") id:Long?, review: Review?) {
@@ -46,7 +46,7 @@ class ReviewController {
     }
 
     @POST
-    @RolesAllowed("user")
+    @RolesAllowed("user","admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     fun addReview(review: Review?): Review? {
@@ -54,7 +54,7 @@ class ReviewController {
     }
 
     @DELETE
-    @RolesAllowed("user")
+    @RolesAllowed("user","admin")
     @Path("/{id}")
     fun deleteReview(@PathParam("id") id: Long?) {
         reviewResource?.deleteReview(id)

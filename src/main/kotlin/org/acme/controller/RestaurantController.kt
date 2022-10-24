@@ -32,7 +32,7 @@ class RestaurantController {
     }
 
     @PUT
-    @RolesAllowed("owner")
+    @RolesAllowed("owner","admin")
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     fun updateRestaurant(@PathParam("id") id: Long?, restaurant: Restaurant?) {
@@ -40,7 +40,7 @@ class RestaurantController {
     }
 
     @POST
-    @RolesAllowed("owner")
+    @RolesAllowed("owner","admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     fun addRestaurant(restaurant: Restaurant?): Restaurant? {
@@ -48,7 +48,7 @@ class RestaurantController {
     }
 
     @DELETE
-    @RolesAllowed("owner")
+    @RolesAllowed("owner","admin")
     @Path("/{id}")
     fun deleteRestaurant(@PathParam("id") id: Long?) {
         restaurantResource?.deleteRestaurant(id)
