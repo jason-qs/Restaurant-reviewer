@@ -8,24 +8,25 @@ import kotlin.jvm.Transient
 
 @Table(name="restaurants")
 @Entity
-public class Restaurant: Serializable{
+class Restaurant: Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null;
     var name: String? = null
     var address: String? = null
     var category: String? = null
-
+    var userId: Long? = null
 
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "restaurantId")
     open var reviews: MutableSet<Review> = mutableSetOf()
 
-    constructor(id: Long?, name: String?, address: String?, category: String?) {
+    constructor(id: Long?, name: String?, address: String?, category: String?, userId: Long?) {
         this.id = id
         this.name = name
         this.address = address
         this.category = category
+        this.userId = userId
     }
 
     constructor() : super() {}

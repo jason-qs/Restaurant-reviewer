@@ -7,6 +7,8 @@ import javax.persistence.*
 @Entity
 class Review : Serializable {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
