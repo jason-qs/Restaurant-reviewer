@@ -6,9 +6,6 @@ import javax.persistence.*
 @Table(name = "reviews")
 @Entity
 class Review : Serializable {
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -18,7 +15,7 @@ class Review : Serializable {
     var restaurantId: Long? = null
     var userId: Long? = null
 
-    constructor(id: Long?, content: String?, rating: Float?, restaurantId: Long?, UserId: Long?) {
+    constructor(id: Long?, content: String?, rating: Float?, restaurantId: Long?, userId: Long?) {
         this.id = id
         this.content = content
         this.rating = rating

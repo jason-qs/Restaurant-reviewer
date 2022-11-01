@@ -1,9 +1,6 @@
 package org.acme.service
 
 import org.acme.entity.Review
-import java.util.LongSummaryStatistics
-import javax.annotation.security.PermitAll
-import javax.annotation.security.RolesAllowed
 import javax.inject.Inject
 import javax.inject.Singleton
 import javax.persistence.EntityManager
@@ -13,7 +10,7 @@ import javax.transaction.Transactional
 class ReviewService {
 
     @Inject
-    var entityManager: EntityManager? = null
+    lateinit var entityManager: EntityManager
 
     fun getReviews(): kotlin.collections.List<Review?>? {
         return entityManager!!.createQuery("SELECT c From Review c").resultList as List<Review?>?
@@ -39,7 +36,7 @@ class ReviewService {
         }
     }
     @Transactional(Transactional.TxType.REQUIRED)
-    fun deleteReview(id:Long?) {
+    fun deleteReview(id: Long?) {
         val review: Review = getReview(id)
         entityManager!!.remove(review)
     }

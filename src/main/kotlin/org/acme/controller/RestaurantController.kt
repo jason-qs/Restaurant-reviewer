@@ -1,34 +1,42 @@
 package org.acme.controller
 
-import io.quarkus.security.Authenticated
+
 import org.acme.entity.Restaurant
+import org.acme.entity.Review
+import org.acme.entity.User
 import org.acme.service.RestaurantService
+import org.acme.service.ReviewService
 import org.acme.service.UserService
 import javax.annotation.security.PermitAll
 import javax.annotation.security.RolesAllowed
 
 import javax.inject.Inject
 import javax.ws.rs.*
+import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.SecurityContext
 
+
 @Path("/api/restaurants")
 class RestaurantController {
-    @Inject
-    var restaurantResource: RestaurantService? = null
 
     @Inject
     var userResource: UserService? = null
+    @Inject
+    var reviewResource: ReviewService? = null
+    @Inject
+    var restaurantResource: RestaurantService? = null
+
 
     @GET
-    @RolesAllowed("admin")
+    @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     fun getRestaurants(): List<Restaurant?>? {
         return restaurantResource?.getRestaurants()
     }
 
     @GET
-    @RolesAllowed("admin")
+    @PermitAll
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     fun getRestaurant(@PathParam("id") id: Long?): Restaurant? {
@@ -44,11 +52,23 @@ class RestaurantController {
     }
 
     @POST
-    @RolesAllowed("admin", "user")
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     fun addRestaurant(restaurant: Restaurant?): Restaurant? {
         return  restaurantResource?.addRestaurant(restaurant)
+    }
+    @POST
+    @RolesAllowed("user"+"admin")
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    fun rateRestaurant(@Context ctx: SecurityContext, @PathParam("id") id: Long?, review: Review): Review? {
+        val user: User = userResource!!.getUserByUsername(ctx.userPrincipal.name.toString())!!
+        val reviewToBeCreated: Review = review
+        reviewToBeCreated.userId= user.id
+        reviewToBeCreated.restaurantId = id
+        return reviewResource?.addReview(reviewToBeCreated)
     }
 
     @DELETE
@@ -58,24 +78,6 @@ class RestaurantController {
         return restaurantResource?.deleteRestaurant(id)
     }
 
-    @PUT
-    @RolesAllowed("user")
-    @Path("/me/{id}")
-    fun updateUserRestaurant(@PathParam("id") id: Long?, ctx : SecurityContext, restaurant: Restaurant?): Any? {
-        if(userResource?.getUserByUsername(ctx.userPrincipal.name)?.restaurant!! ==   restaurantResource?.getRestaurant(id)) {
-           return restaurantResource?.updateRestaurant(id, restaurant!!)
-        } else {
-            return null
-        }
-    }
 
-    @DELETE
-    @RolesAllowed("user")
-    @Path("/me/{id}")
-    fun deleteUserRestaurant(@PathParam("id") id: Long?, ctx : SecurityContext): Restaurant?{
-        if(userResource?.getUserByUsername(ctx.userPrincipal.name)?.restaurant!! ==   restaurantResource?.getRestaurant(id)) {
-            restaurantResource?.deleteRestaurant(id)
-        }
-    }
 
 }

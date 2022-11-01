@@ -62,10 +62,6 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy-jsonb</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jdbc-h2</artifactId>
     </dependency>
       <dependency>
@@ -84,16 +80,26 @@
           <groupId>io.quarkus</groupId>
           <artifactId>quarkus-elytron-security-jdbc</artifactId>
       </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-crypto</artifactId>
-      <version>5.7.3</version>
-    </dependency>
-    <dependency>
+      <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-jwt</artifactId>
       <version>2.13.3.Final</version>
     </dependency>
+      <dependency>
+          <groupId>io.quarkus</groupId>
+          <artifactId>quarkus-smallrye-jwt-build</artifactId>
+          <version>2.13.3.Final</version>
+      </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy-reactive-jsonb</artifactId>
+      <version>2.13.3.Final</version>
+    </dependency>
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-crypto</artifactId>
+          <version>5.7.3</version>
+      </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src/main/kotlin</sourceDirectory>

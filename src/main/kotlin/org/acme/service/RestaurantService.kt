@@ -4,13 +4,12 @@ import org.acme.entity.Restaurant
 import javax.inject.Inject
 import javax.inject.Singleton
 import javax.persistence.EntityManager
-import javax.persistence.Table
 import javax.transaction.Transactional
 
 @Singleton
 class RestaurantService {
     @Inject
-    var entityManager: EntityManager? = null
+    lateinit var entityManager: EntityManager
 
     fun getRestaurants(): kotlin.collections.List<Restaurant?>? {
         return entityManager!!.

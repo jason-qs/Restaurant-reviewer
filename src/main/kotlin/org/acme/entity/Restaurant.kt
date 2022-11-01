@@ -1,17 +1,14 @@
 package org.acme.entity
 
 import java.io.Serializable
-import java.util.Locale.Category
 import javax.persistence.*
-import javax.transaction.Transactional
-import kotlin.jvm.Transient
 
 @Table(name="restaurants")
 @Entity
 class Restaurant: Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null;
+    var id: Long? = null
     var name: String? = null
     var address: String? = null
     var category: String? = null

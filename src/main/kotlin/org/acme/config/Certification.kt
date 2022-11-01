@@ -2,8 +2,6 @@ package org.acme.config
 
 import java.security.KeyPairGenerator
 import java.util.*
-import javax.inject.Singleton
-
 
 class Certification {
     fun generateKeyPairs() {

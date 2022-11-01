@@ -1,20 +1,11 @@
 package org.acme.entity
 
-import io.quarkus.security.identity.SecurityIdentity
-import org.jboss.resteasy.spi.touri.MappedBy
 import java.io.Serializable
-import javax.annotation.security.PermitAll
-import javax.inject.Inject
 import javax.persistence.*
-import javax.print.attribute.standard.JobOriginatingUserName
-import javax.ws.rs.GET
-import javax.ws.rs.Path
-import javax.ws.rs.Produces
-import javax.ws.rs.core.MediaType
 
 @Table(name="users")
 @Entity
-class User : Serializable {
+class User : Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
